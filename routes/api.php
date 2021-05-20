@@ -1,10 +1,11 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 
-use App\Models\User;
+// use App\Models\User;
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResumeController;
 
 /*
@@ -18,32 +19,19 @@ use App\Http\Controllers\ResumeController;
 |
 */
 
-Route::middleware('auth')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth')->get('/user', function () {
+    return auth()->user();
 });
 
-// Create a user
-Route::get('/user-create', function(Request $request) {
-  User::create([
-    'email' => "jan@jan.jan",
-    'name' => 'Jan',
-    'password' => Hash::make('mypassword'),
-  ]);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', function () {
+  return response()->json(auth()->user(), 200);
 });
 
-// Log in a user
-Route::post('/login', function(Request $request) {
+// // Get authenticated user
+// Route::middleware('auth')->get('/me', function (){
+//   return auth()->user();
+// });
 
-  $credentials = $request->only(['email', 'password']);
-
-  $token = auth()->attempt($credentials);
-
-  return $token;
-});
-
-// Get authenticated user
-Route::middleware('auth')->get('/me', function (){
-  return auth()->user();
-});
-
-// Route::get('/resumes', [ResumeController::class, 'index']);
+Route::get('/resumes', [ResumeController::class, 'index']);
