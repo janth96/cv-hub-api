@@ -8,10 +8,10 @@ class UserController extends Controller
 {
     public function show ()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth()->user(), 200);
     }
-    
-    public function update(Request $request)
+
+    public function update (Request $request)
     {
         return response()->json($request, 200);
     }
