@@ -26,4 +26,5 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
   Route::get('/me', [UserController::class, 'show']);
+  Route::patch('/me', [UserController::class, 'update']);
 });
