@@ -45,6 +45,6 @@ class AuthTest extends TestCase
     {
       $response = $this->json('GET', '/api/ping');
 
-      $response->assertJsonValidationErrors();
+      $response->assertOk();
     }
 }
