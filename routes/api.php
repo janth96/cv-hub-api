@@ -23,6 +23,10 @@ Route::middleware('auth')->get('/user', function () {
     return auth()->user();
 });
 
+Route::get('/ping', function () {
+  return response()->json('pong', 200);
+});
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/me', function () {
