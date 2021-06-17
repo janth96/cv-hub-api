@@ -3,9 +3,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\QueryException;
 
-// use App\Models\User;
-
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResumeController;
 
 /*
@@ -19,8 +18,9 @@ use App\Http\Controllers\ResumeController;
 |
 */
 
-Route::middleware('auth')->get('/user', function () {
-    return auth()->user();
+Route::middleware('auth')->group(function () {
+  Route::get('/user', [UserController::class, 'show']);
+  // Route::patch('/user', [UserController::class, 'update']);
 });
 
 Route::get('/ping', function () {
@@ -29,13 +29,6 @@ Route::get('/ping', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/me', function () {
-  return response()->json(auth()->user(), 200);
-});
 
-// // Get authenticated user
-// Route::middleware('auth')->get('/me', function (){
-//   return auth()->user();
-// });
 
 Route::get('/resumes', [ResumeController::class, 'index']);

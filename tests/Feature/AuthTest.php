@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
+use app\Models\User;
 
 class AuthTest extends TestCase
 {
@@ -41,10 +43,27 @@ class AuthTest extends TestCase
           ->assertJsonValidationErrors(['password']);
     }
 
-    public function test_connection()
+    public function test_login_user_success()
     {
-      $response = $this->json('GET', '/api/ping');
+        $user = User::factory()->create([
+          'password' => Hash::make($password = '1234567890')
+        ]);
 
-      $response->assertJsonValidationErrors();
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => $password,
+        ])->assertOk();
+    }
+
+    public function test_login_user_fail()
+    {
+        $user = User::factory()->create([
+          'password' => Hash::make($password = '1234567890')
+        ]);
+
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => '123456789',
+        ])->assertStatus(401);
     }
 }
