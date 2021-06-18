@@ -10,20 +10,24 @@ class UserController extends Controller
     {
         return response()->json(['user' => auth()->user()], 200);
     }
-    // 
-    // public function update (Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:8'/*, 'confirmed'*/],
-    //         ''
-    //     ])
-    //
-    //     $user = auth()->user()->update([
-    //
-    //     ]);
-    //
-    //     return response()->json(, 200);
-    // }
+
+    public function update (Request $request)
+    {
+        $request->validate([
+            'name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users',
+            'password' => 'string|min:8',
+            'job_title' => 'string|nullable',
+            'phone_number' => 'string|nullable',
+            'linkedin_url' => 'string|nullable',
+            'github_url' => 'string|nullable',
+            'website_url' => 'string|nullable',
+        ]);
+
+        $user = auth()->user();
+
+        $user->update($request->all());
+
+        return response()->json(['user' => $user], 200);
+    }
 }

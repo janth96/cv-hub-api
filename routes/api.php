@@ -20,7 +20,7 @@ use App\Http\Controllers\ResumeController;
 
 Route::middleware('auth')->group(function () {
   Route::get('/user', [UserController::class, 'show']);
-  // Route::patch('/user', [UserController::class, 'update']);
+  Route::patch('/user', [UserController::class, 'update']);
 });
 
 Route::get('/ping', function () {
