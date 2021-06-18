@@ -9,8 +9,7 @@ use App\Models\User;
 
 class UserTest extends TestCase
 {
-    // use RefreshDatabase;
-
+    use RefreshDatabase;
 
     public function test_get_user_details_success()
     {
