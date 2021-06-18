@@ -9,28 +9,28 @@ use App\Models\User;
 
 class UserTest extends TestCase
 {
-    public function test_get_user_details_success()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)
-          ->get('/api/user')
-          ->assertJsonStructure([
-            'user' => [
-              'name',
-              'email',
-            ]
-          ])
-          ->assertOk();
-    }
-
-    public function test_update_user_details_success()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)
-          ->patch('/api/user', [
-            'job_title' => 'Assistent',
-          ])->assertOk();
-    }
+    // public function test_get_user_details_success()
+    // {
+    //     $user = User::factory()->create();
+    //
+    //     $response = $this->actingAs($user)
+    //       ->get('/api/user')
+    //       ->assertJsonStructure([
+    //         'user' => [
+    //           'name',
+    //           'email',
+    //         ]
+    //       ])
+    //       ->assertOk();
+    // }
+    //
+    // public function test_update_user_details_success()
+    // {
+    //     $user = User::factory()->create();
+    //
+    //     $response = $this->actingAs($user)
+    //       ->patch('/api/user', [
+    //         'job_title' => 'Assistent',
+    //       ])->assertOk();
+    // }
 }
