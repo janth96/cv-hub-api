@@ -18,7 +18,7 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users',
             'password' => 'string|min:8',
             'job_title' => 'string|nullable',
-            'phone_number' => 'string|nullable',
+            'phone_number' => 'numeric|nullable',
             'linkedin_url' => 'string|nullable',
             'github_url' => 'string|nullable',
             'website_url' => 'string|nullable',
